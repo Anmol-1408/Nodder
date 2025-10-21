@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import prisma from "@/lib/db";
+import { caller } from "@/trpc/server";
 
 const page = async () => {
-  const user = await prisma.user.findMany();
+  const user = await caller.getUsers();
   console.log("User from DB:", user);
   return (
     <div className="text-red-500">
