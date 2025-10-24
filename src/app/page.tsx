@@ -1,13 +1,28 @@
-import { Button } from "@/components/ui/button";
-import { caller } from "@/trpc/server";
 
-const page = async () => {
-  const user = await caller.getUsers();
-  console.log("User from DB:", user);
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+import { requireAuth } from "@/lib/auth-utils";
+import { caller } from "@/trpc/server";
+import { LogoutButton } from "./logout";
+
+
+const page = async() => {
+  await requireAuth(); 
+  const data = await caller.getUsers();
+ 
   return (
-    <div className="text-red-500">
-      {JSON.stringify(user)}
-      <Button variant="outline">Click Me</Button>
+    <div className="min-h-screen min-w-screen flex items-center justify-center flex-col gap-y-6">
+     {/* {JSON.stringify(data)}
+     {data && (
+     <Button onClick={() => authClient.signOut()}>Sign Out</Button>
+     )} */}
+
+     protected server page
+     <div>
+     {JSON.stringify(data)}
+      </div>
+      <LogoutButton />
+      
     </div>
   );
 }
